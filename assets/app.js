@@ -20,8 +20,8 @@ const whatsappNumber = "526461481452";
 const cart = new Map();
 const labels = { "Todo": "Todo", "Café": "Café", "Fríos": "Fríos", "Postres": "Postres" };
 const productPhotos = {
-  espresso: "zy-coffee-espresso-ref.jpg", americano: "zy-coffee-americano-ref.jpg",
-  "flat-white": "zy-coffee-flat-white-ref.jpg", latte: "zy-coffee-latte-ref.jpg",
+  espresso: "zy-coffee-espresso-ref.jpg?v=zy-logo-1", americano: "zy-coffee-americano-ref.jpg?v=zy-logo-1",
+  "flat-white": "zy-coffee-flat-white-ref.jpg?v=zy-logo-1", latte: "zy-coffee-latte-ref.jpg?v=zy-logo-1",
   "iced-latte": "zy-coffee-iced-latte.jpg", "cold-brew": "zy-coffee-cold-brew.jpg",
   affogato: "zy-coffee-affogato.jpg", "pan-dulce": "zy-coffee-pastries.jpg"
 };
