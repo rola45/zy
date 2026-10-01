@@ -1,3 +1,5 @@
+import { menu as staticMenu } from "../menu.js";
+
 const money = new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 });
 const grid = document.querySelector("#menu-grid");
 const categories = document.querySelector("#categories");
@@ -32,7 +34,7 @@ function renderCategories() {
 }
 function renderMenu() {
   const visible = menu.filter(item => selectedCategory === "Todo" || item.category === selectedCategory);
-  grid.innerHTML = visible.map(item => `<article class="menu-item"><img class="menu-item-photo" src="/assets/${productPhotos[item.id] || "zy-coffee-cold-brew.jpg"}" alt="${escapeHtml(item.name)} de ZY Coffee" loading="lazy"/><div class="menu-item-copy"><div class="item-top"><span class="item-category">${escapeHtml(item.category.toUpperCase())}</span>${item.tag ? `<span class="item-tag">${escapeHtml(item.tag)}</span>` : ""}</div><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.description)}</p></div><div class="item-bottom"><span class="item-price">${money.format(item.price)}</span><button class="add-item" type="button" aria-label="Agregar ${escapeHtml(item.name)}" data-add="${escapeHtml(item.id)}">+</button></div></article>`).join("");
+  grid.innerHTML = visible.map(item => `<article class="menu-item"><img class="menu-item-photo" src="assets/${productPhotos[item.id] || "zy-coffee-cold-brew.jpg"}" alt="${escapeHtml(item.name)} de ZY Coffee" loading="lazy"/><div class="menu-item-copy"><div class="item-top"><span class="item-category">${escapeHtml(item.category.toUpperCase())}</span>${item.tag ? `<span class="item-tag">${escapeHtml(item.tag)}</span>` : ""}</div><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.description)}</p></div><div class="item-bottom"><span class="item-price">${money.format(item.price)}</span><button class="add-item" type="button" aria-label="Agregar ${escapeHtml(item.name)}" data-add="${escapeHtml(item.id)}">+</button></div></article>`).join("");
   grid.querySelectorAll("[data-add]").forEach(button => button.addEventListener("click", () => { const id = button.dataset.add; cart.set(id, (cart.get(id) || 0) + 1); renderCart(); showToast("Agregado a tu pedido"); }));
 }
 function renderCart() {
@@ -58,7 +60,13 @@ async function loadMenu() {
     status.textContent = onlineOrdersOpen ? "Pedidos en línea abiertos · El equipo confirmará disponibilidad y hora de recogida." : "Por ahora no recibimos pedidos en línea. Consulta el horario y vuelve pronto.";
     renderCategories(); renderMenu(); renderCart();
   } catch {
-    grid.innerHTML = '<div class="loading-card">No pudimos cargar el menú. Actualiza la página para intentarlo de nuevo.</div>';
+    menu = staticMenu.map(item => ({ ...item }));
+    onlineOrdersOpen = true;
+    document.querySelector("#store-status").textContent = "Menú de muestra · Los pedidos se envían por WhatsApp; esta página estática no guarda pedidos en el panel.";
+    document.querySelector("#order-form button[type=submit]").hidden = true;
+    document.querySelector("#account-button").hidden = true;
+    document.querySelector("#open-account-choice-footer").hidden = true;
+    renderCategories(); renderMenu(); renderCart();
   }
 }
 checkout.addEventListener("click", () => {

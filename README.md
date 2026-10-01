@@ -2,6 +2,8 @@
 
 Aplicación de operación para pedidos web, barra y caja de una sola sucursal. Incluye una carta de ejemplo en MXN, cuenta opcional para clientes, pedido como invitado, bandeja del barista y punto de venta.
 
+La página de inicio está en `index.html` y los archivos públicos en `assets/`, en la raíz del repositorio para que GitHub Pages pueda encontrarlos. En GitHub Pages el menú usa el menú inicial y los pedidos se envían por WhatsApp; el panel, las cuentas y el POS requieren el servidor Node y su base de datos.
+
 ## Inicio
 
 Este proyecto usa Node.js 24 o posterior y SQLite integrado en Node.
@@ -33,4 +35,4 @@ El menú inicial es demostrativo porque falta la carta oficial con productos y p
 
 ## Antes de publicar
 
-Agrega datos oficiales de contacto del negocio y revisa el aviso de privacidad. Para operar en internet, aloja la aplicación y la base de datos en un servidor con HTTPS y almacenamiento persistente; la vista previa `localhost` solo funciona en este equipo.
+Agrega datos oficiales de contacto del negocio y revisa el aviso de privacidad. Para que las solicitudes de WhatsApp también aparezcan en el dashboard, aloja el servidor Node y su base de datos en un servidor con HTTPS y almacenamiento persistente. GitHub Pages solo aloja los archivos estáticos; no ejecuta el backend ni conserva los pedidos.

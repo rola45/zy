@@ -413,13 +413,17 @@ async function handle(req, res) {
     } catch { return json(res, 400, { error: "No se pudo actualizar el pedido." }); }
   }
   if (req.method === "GET" && pathname.startsWith("/api/")) return json(res, 404, { error: "No encontramos esa opción." });
-  if (req.method === "GET" && (pathname === "/" || pathname === "/admin" || pathname === "/admin/" || pathname === "/pos" || pathname === "/pos/" || pathname === "/cuenta" || pathname === "/aviso-de-privacidad")) {
-    const file = pathname === "/" ? "index.html" : pathname === "/aviso-de-privacidad" ? "privacy.html" : pathname === "/pos" || pathname === "/pos/" ? "pos.html" : pathname === "/cuenta" ? "account.html" : "admin.html";
+  if (req.method === "GET" && pathname === "/menu.js") {
+    res.writeHead(200, { "Content-Type": "text/javascript; charset=utf-8", "Cache-Control": "no-store" });
+    return fs.createReadStream(path.join(root, "menu.js")).pipe(res);
+  }
+  const pageFiles = { "/": "index.html", "/index.html": "index.html", "/admin": "admin.html", "/admin/": "admin.html", "/admin.html": "admin.html", "/pos": "pos.html", "/pos/": "pos.html", "/pos.html": "pos.html", "/cuenta": "account.html", "/account.html": "account.html", "/aviso-de-privacidad": "privacy.html", "/privacy.html": "privacy.html" };
+  if (req.method === "GET" && pageFiles[pathname]) {
     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" });
-    return fs.createReadStream(path.join(root, "public", file)).pipe(res);
+    return fs.createReadStream(path.join(root, pageFiles[pathname])).pipe(res);
   }
   if (req.method === "GET" && pathname.startsWith("/assets/")) {
-    const assetsDir = path.join(root, "public", "assets");
+    const assetsDir = path.join(root, "assets");
     const file = path.resolve(assetsDir, pathname.slice("/assets/".length));
     if (!file.startsWith(`${assetsDir}${path.sep}`) || !fs.existsSync(file) || !fs.statSync(file).isFile()) { res.writeHead(404); return res.end("No encontrado"); }
     res.writeHead(200, { "Content-Type": mime[path.extname(file)] || "application/octet-stream", "Cache-Control": "no-store" });

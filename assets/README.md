@@ -19,4 +19,4 @@ Consulta cada publicación:
 - `post-DPx1w3_DlI6.jpg` — https://www.instagram.com/zy.coffee_/p/DPx1w3_DlI6/
 - `post-DPkKlKMgZoB.jpg` — https://www.instagram.com/zy.coffee_/p/DPkKlKMgZoB/
 
-La foto de perfil se guardó por separado en Descargas como `553014459_17847158535570074_985564933476005230_n.jpg`; se copió al sitio como `public/assets/zy-coffee-logo.jpg`. Los derechos de reutilización corresponden a Zy Coffee.
+La foto de perfil se guardó por separado en Descargas como `553014459_17847158535570074_985564933476005230_n.jpg`; se copió al sitio como `assets/zy-coffee-logo.jpg`. Los derechos de reutilización corresponden a Zy Coffee.
